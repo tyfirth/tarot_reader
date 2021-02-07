@@ -20,8 +20,7 @@ document.addEventListener('DOMContentLoaded', function(){
     .then(resp => resp.json())
     .then(data => displayCards(data.cards))
   })
-
-
+  
   let resetBtn = document.getElementById('reset')
   resetBtn.addEventListener('click', resetContainer)
 
@@ -69,7 +68,6 @@ function displayCards(cards) { // should probably separate into createCard metho
     newInfoBtn.innerText = "Info"
     cardDiv.appendChild(newInfoBtn)
 
-// testing area
     newInfoBtn.addEventListener('click', function(e){
       let infoBtn = e.target.closest('div button.info-button')
       if (hidden) {
@@ -80,6 +78,10 @@ function displayCards(cards) { // should probably separate into createCard metho
         hidden = !hidden
       }
     })
+
+    // testing area
+
+
   } // end for all displayed
 }
 
