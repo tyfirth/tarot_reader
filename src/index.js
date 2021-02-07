@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function(){
 }) // end of DOMContentLoaded
 
 function displayCards(cards) { // should probably separate into createCard method and display method
-  let hidden = false
+  let hidden = true
   resetContainer()
   let cardContainer = document.querySelector('div.card-container')
   // for all displayed cards
@@ -69,23 +69,18 @@ function displayCards(cards) { // should probably separate into createCard metho
     newInfoBtn.innerText = "Info"
     cardDiv.appendChild(newInfoBtn)
 
-
-
-    let infoBtns = Array.from(document.getElementsByClassName('info-button'))
-// problem here hidding multiple cards
-    for (const element of infoBtns){ //take this part out?
-      element.addEventListener('click', function(e){
-        let infoBtn = e.target.closest('div button.info-button')
-        if (hidden) {
-          infoContainer.style.display = "block";
-          hidden = !hidden
-        } else if (!hidden) {
-          infoContainer.style.display = "none";
-          hidden = !hidden
-        }
-      })
-    } //and take this out?
-  } // end for all displayed cards
+// testing area
+    newInfoBtn.addEventListener('click', function(e){
+      let infoBtn = e.target.closest('div button.info-button')
+      if (hidden) {
+        infoContainer.style.display = "block";
+        hidden = !hidden
+      } else if (!hidden) {
+        infoContainer.style.display = "none";
+        hidden = !hidden
+      }
+    })
+  } // end for all displayed
 }
 
 function resetContainer() {

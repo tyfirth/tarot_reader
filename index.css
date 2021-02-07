@@ -15,7 +15,7 @@ body {
 }
 
 .info-container {
-  display: block;
+  display: none;
 }
 
 .card-name {
