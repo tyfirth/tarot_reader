@@ -5,6 +5,11 @@
   // .then(resp => resp.json())
   // .then(data => displayCards(data.cards))
 
+  fetch('http://localhost:3000/data')
+  .then(resp => resp.json())
+  .then(data => console.log(data.cards))
+
+
 document.addEventListener('DOMContentLoaded', function(){
 
   const oneCardDrawBtn = document.getElementById('oneCardDraw')
@@ -20,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
     .then(resp => resp.json())
     .then(data => displayCards(data.cards))
   })
-  
+
   let resetBtn = document.getElementById('reset')
   resetBtn.addEventListener('click', resetContainer)
 
