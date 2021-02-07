@@ -1,0 +1,27 @@
+body {
+  background-color: lightblue;
+}
+
+.card {
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  margin: 2px;
+  padding: 2px;
+}
+
+.info-button {
+  text-align: center;
+}
+
+.info-container {
+  display: block;
+}
+
+.card-name {
+  text-align: center;
+}
+
+.card-meaning-up {
+  text-align: center;
+}
