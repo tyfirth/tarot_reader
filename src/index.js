@@ -52,6 +52,7 @@ function displayCards(cards) { // should probably separate into createCard metho
     cardNumber.classList = 'card-number'
     cardNumber.innerText = element.value_int
     cardDiv.appendChild(cardNumber)
+    let cardImgNum = element.value_int
 // Can I do something with that?
 
     let cardType = document.createElement('h3')
@@ -64,8 +65,8 @@ function displayCards(cards) { // should probably separate into createCard metho
     cardSuit.innerText = cardArcana(element)
     cardDiv.appendChild(cardSuit)
 
-    let suitFirstLetter = cardArcana(element).split("")[0]
-    console.log(suitFirstLetter.toLowerCase())
+    let suitFirstLetter = cardArcana(element).split("")[0].toLowerCase()
+    console.log(suitFirstLetter)
 
     // fetch('http://localhost:3000/data')
     // .then(resp => resp.json())
@@ -84,7 +85,7 @@ function displayCards(cards) { // should probably separate into createCard metho
     // put image here
     let cardImg = document.createElement('img')
     cardImg.classList = 'card-img'
-    // cardImg.src = './cards/' + suitFirstLetter + cardNumber + '.jpg'
+    cardImg.src = './cards/' + suitFirstLetter + cardImgNum + '.jpg'
     cardDiv.appendChild(cardImg)
 
     let cardDesc = document.createElement('p')
