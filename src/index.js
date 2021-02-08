@@ -5,9 +5,8 @@
   // .then(resp => resp.json())
   // .then(data => displayCards(data.cards))
 
-  fetch('http://localhost:3000/data')
-  .then(resp => resp.json())
-  .then(data => console.log(data.cards))
+
+
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -48,6 +47,35 @@ function displayCards(cards) { // should probably separate into createCard metho
     cardName.innerText = element.name
     cardDiv.append(cardName)
 
+// Important !! Card Value is here
+    let cardNumber = document.createElement('h2')
+    cardNumber.classList = 'card-number'
+    cardNumber.innerText = element.value_int
+    cardDiv.appendChild(cardNumber)
+// Can I do something with that?
+
+    let cardType = document.createElement('h3')
+    cardType.classList = 'card-type'
+    cardType.innerText = element.type
+    cardDiv.appendChild(cardType)
+
+    let cardSuit = document.createElement('h3')
+    cardSuit.classList = 'card-suit'
+    cardSuit.innerText = cardArcana(element)
+    cardDiv.appendChild(cardSuit)
+
+    let suitFirstLetter = cardArcana(element).split("")[0]
+    console.log(suitFirstLetter.toLowerCase())
+
+    // fetch('http://localhost:3000/data')
+    // .then(resp => resp.json())
+    // .then(data => getImgs(data.cards))
+    //
+    // function getImgs(cards){
+    //   return cards.find(name => element.name)
+    //   console.log(cards)
+    // }
+
     let cardMeaning = document.createElement('p')
     cardMeaning.classList = 'card-meaning-up'
     cardMeaning.innerText = element.meaning_up
@@ -55,8 +83,9 @@ function displayCards(cards) { // should probably separate into createCard metho
 
     // put image here
     let cardImg = document.createElement('img')
-
-    infoContainer.appendChild(cardImg)
+    cardImg.classList = 'card-img'
+    // cardImg.src = './cards/' + suitFirstLetter + cardNumber + '.jpg'
+    cardDiv.appendChild(cardImg)
 
     let cardDesc = document.createElement('p')
     cardDesc.classList = 'card-desc'
@@ -97,3 +126,19 @@ function resetContainer() {
   newCardContainer.classList = 'card-container'
   document.body.append(newCardContainer)
 }
+
+function cardArcana(card){
+  if (card.type === "major") {
+    card.suit = "Major Arcana"
+  }
+  return card.suit
+}
+
+// fetch('http://localhost:3000/data')
+// .then(resp => resp.json())
+// .then(data => getImgs(data.cards))
+//
+// function getImgs(cards){
+//   return cards.find(name => element.name)
+//   console.log(cards)
+// }

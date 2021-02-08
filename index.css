@@ -25,3 +25,27 @@ body {
 .card-meaning-up {
   text-align: center;
 }
+
+.card-number {
+  text-align: center;
+}
+
+.card-type {
+  text-transform: capitalize;
+  text-align: center;
+}
+
+.card-suit {
+  text-align: center;
+  text-transform: capitalize;
+
+}
+
+.card-img {
+  text-align: center;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  margin: 2px;
+  padding: 2px;
+}
