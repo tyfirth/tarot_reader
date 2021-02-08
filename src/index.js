@@ -1,13 +1,8 @@
   console.log('%c Why, hello there...', 'color: lightblue')
 
-
   // fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
   // .then(resp => resp.json())
   // .then(data => displayCards(data.cards))
-
-
-
-
 
 document.addEventListener('DOMContentLoaded', function(){
 
@@ -67,15 +62,6 @@ function displayCards(cards) { // should probably separate into createCard metho
 
     let suitFirstLetter = cardArcana(element).split("")[0].toLowerCase()
     console.log(suitFirstLetter)
-
-    // fetch('http://localhost:3000/data')
-    // .then(resp => resp.json())
-    // .then(data => getImgs(data.cards))
-    //
-    // function getImgs(cards){
-    //   return cards.find(name => element.name)
-    //   console.log(cards)
-    // }
 
     let cardMeaning = document.createElement('p')
     cardMeaning.classList = 'card-meaning-up'
