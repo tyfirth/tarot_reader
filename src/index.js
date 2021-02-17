@@ -13,6 +13,14 @@ document.addEventListener('DOMContentLoaded', function(){
   (function() {console.log('%c ..what does your future hold?', 'color:lightblue') }) ()
 // IIFE being called here ^^^
 
+  fetchReadings()
+
+  function fetchReadings(){
+    fetch('http://localhost:3000/api/v1/readings')
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+  }
+
   const oneCardDrawBtn = document.getElementById('oneCardDraw')
   oneCardDrawBtn.addEventListener('click', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1")
@@ -132,6 +140,8 @@ function cardArcana(card){
   }
   return card.suit
 }
+
+
 
 // fetch('http://localhost:3000/data')
 // .then(resp => resp.json())
