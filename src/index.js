@@ -1,10 +1,17 @@
   console.log('%c Why, hello there...', 'color: lightblue')
 
+  // (function() {console.log('%c ..what does your future hold?', 'color:lightblue') }) ()
+  // why cant this IIFE be called here?
+
+// basic fetch
   // fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
   // .then(resp => resp.json())
   // .then(data => displayCards(data.cards))
 
 document.addEventListener('DOMContentLoaded', function(){
+
+  (function() {console.log('%c ..what does your future hold?', 'color:lightblue') }) ()
+// IIFE being called here ^^^
 
   const oneCardDrawBtn = document.getElementById('oneCardDraw')
   oneCardDrawBtn.addEventListener('click', function(){
@@ -18,6 +25,11 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
     .then(resp => resp.json())
     .then(data => displayCards(data.cards))
+  })
+
+  const saveButton = document.getElementById('saveReading')
+  saveButton.addEventListener('click', function(){
+    //start post fetching
   })
 
   let resetBtn = document.getElementById('reset')
