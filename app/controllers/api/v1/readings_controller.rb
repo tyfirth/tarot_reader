@@ -13,7 +13,7 @@ class Api::V1::ReadingsController < ApplicationController
   private
 
     def reading_params
-      params.require(:reading).permit(:notes, :timestamps)
+      params.require(:reading).permit(:notes, :timestamps, card_attributes: [:name, :number, :type, :suit, :meaning_up, :desc])
     end
     # add card_attributes to params
 

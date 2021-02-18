@@ -15,12 +15,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
   fetchReadings()
 
-  function fetchReadings(){
-    fetch('http://localhost:3000/api/v1/readings')
-    .then(resp => resp.json())
-    .then(data => console.log(data))
-  }
-
   const oneCardDrawBtn = document.getElementById('oneCardDraw')
   oneCardDrawBtn.addEventListener('click', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1")
@@ -37,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   const saveButton = document.getElementById('saveReading')
   saveButton.addEventListener('click', function(){
-    //start post fetching
+    createReading()
   })
 
   let resetBtn = document.getElementById('reset')
@@ -68,7 +62,6 @@ function displayCards(cards) { // should probably separate into createCard metho
     cardNumber.innerText = element.value_int
     cardDiv.appendChild(cardNumber)
     let cardImgNum = element.value_int
-// Can I do something with that?
 
     let cardType = document.createElement('h3')
     cardType.classList = 'card-type'
@@ -81,7 +74,6 @@ function displayCards(cards) { // should probably separate into createCard metho
     cardDiv.appendChild(cardSuit)
 
     let suitFirstLetter = cardArcana(element).split("")[0].toLowerCase()
-    console.log(suitFirstLetter)
 
     let cardMeaning = document.createElement('p')
     cardMeaning.classList = 'card-meaning-up'
@@ -102,7 +94,6 @@ function displayCards(cards) { // should probably separate into createCard metho
     cardDiv.appendChild(infoContainer)
 
     cardContainer.appendChild(cardDiv)
-    console.log(element.name)
 
     let newInfoBtn = document.createElement('button')
     newInfoBtn.classList = 'info-button'
@@ -141,7 +132,35 @@ function cardArcana(card){
   return card.suit
 }
 
+const fetchReadings = function(){
+  fetch('http://localhost:3000/api/v1/readings')
+  .then(resp => resp.json())
+  .then(data => console.log(data))
+}
 
+function createReading(readingObj){
+  getCardData()
+  fetch('http://localhost:3000/api/v1/readings',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({reading: readingObj})
+  })
+  .then(resp => resp.json())
+  .then(data => console.log(data))
+}
+
+function getCardData() {
+  let cardArray = Array.from(document.getElementsByClassName('card'))
+  const readingObj = {}
+  for(let i = 0; i < cardArray.length; i++){
+    readingObj[`card${i+1}`] = cardArray[i]
+  }
+  console.log(cardArray)
+  console.log(readingObj)
+  return readingObj
+}
 
 // fetch('http://localhost:3000/data')
 // .then(resp => resp.json())
