@@ -8,6 +8,11 @@
   // .then(resp => resp.json())
   // .then(data => displayCards(data.cards))
 
+// click button to get random readings from api
+// pass a customized reading object to a another function that will wait
+// for save button click, at which point will trigger a
+// post fetch to YOUR Api with customized reading object (that has_many cards)
+
 document.addEventListener('DOMContentLoaded', function(){
 
   (function() {console.log('%c ..what does your future hold?', 'color:lightblue') }) ()
@@ -20,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1")
     .then(resp => resp.json())
     .then(data => displayCards(data.cards))
+
   })
 
   const sevenCardDrawBtn = document.getElementById('sevenCardDraw')
@@ -27,6 +33,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
     .then(resp => resp.json())
     .then(data => displayCards(data.cards))
+
   })
 
   const saveButton = document.getElementById('saveReading')
@@ -83,7 +90,7 @@ function displayCards(cards) { // should probably separate into createCard metho
     // put image here
     let cardImg = document.createElement('img')
     cardImg.classList = 'card-img'
-    cardImg.src = './cards/' + suitFirstLetter + cardImgNum + '.jpg'
+    cardImg.src = '../cards/' + suitFirstLetter + cardImgNum + '.jpg'
     cardDiv.appendChild(cardImg)
 
     let cardDesc = document.createElement('p')
@@ -110,6 +117,9 @@ function displayCards(cards) { // should probably separate into createCard metho
         hidden = !hidden
       }
     })
+    // call function that puts event listener on save button
+    // which when clicked, takes the cards and sends a post fetch to
+    // create a new reading object with those cards
 
     // testing area
 
@@ -155,7 +165,7 @@ function getCardData() {
   let cardArray = Array.from(document.getElementsByClassName('card'))
   const readingObj = {}
   for(let i = 0; i < cardArray.length; i++){
-    readingObj[`card${i+1}`] = cardArray[i]
+    readingObj[`card${i+1}`] = cardArray[i].childNodes
   }
   console.log(cardArray)
   console.log(readingObj)
