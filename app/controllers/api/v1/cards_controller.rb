@@ -1,5 +1,9 @@
 class Api::V1::CardsController < ApplicationController
 
+  def index
+    cards = Card.all
+  end
+
   def create
     card = Card.create(card_params)
   end

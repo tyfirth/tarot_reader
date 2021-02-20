@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function(){
 // IIFE being called here ^^^
 
   fetchReadings()
+  // ApiService.fetchReadings()
 
   const oneCardDrawBtn = document.getElementById('oneCardDraw')
   oneCardDrawBtn.addEventListener('click', function(){
@@ -135,38 +136,26 @@ function displayCards(cards) { // should probably separate into createCard metho
   } // end for all displayed
 }
 
-function resetContainer() {
-  let cardContainer = document.querySelector('div.card-container')
-  cardContainer.remove()
-  let newCardContainer = document.createElement('div')
-  newCardContainer.classList = 'card-container'
-  document.body.append(newCardContainer)
-}
-
-function cardArcana(card){
-  if (card.type === "major") {
-    card.suit = "Major Arcana"
-  }
-  return card.suit
-}
-
-const fetchReadings = function(){
-  fetch('http://localhost:3000/api/v1/readings')
-  .then(resp => resp.json())
-  .then(function(readings){
-    console.log(readings)
-    let readingsContainer = document.getElementById('readings-container')
-  })
-}
-
 function createReading(cards){
   // getCardData()
   // create reading obj
-  const readingObj = {}
-    for(const element of cards){
-      readingObj["name"] = element.name
-    }
+  let readingObj = {}
 
+  for(let i = 0; i < cards.length; i++){
+      readingObj["name"] = cards[i].name,
+      readingObj["type"] = cards[i].type,
+      readingObj["suit"] = cards[i].suit,
+      readingObj["number"] = cards[i].value_int,
+      readingObj["desc"] = cards[i].desc
+  }
+
+    // for(const element of cards){
+    //   readingObj["name"] = element.name,
+    //   readingObj["type"] = element.type,
+    //   readingObj["suit"] = element.suit,
+    //   readingObj["number"] = element.value_int,
+    //   readingObj["desc"] = element.desc
+    // }
 
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
@@ -184,6 +173,32 @@ function createReading(cards){
   .then(resp => resp.json())
   .then(data => console.log(data))
 }
+
+function resetContainer() {
+  let cardContainer = document.querySelector('div.card-container')
+  cardContainer.remove()
+  let newCardContainer = document.createElement('div')
+  newCardContainer.classList = 'card-container'
+  document.body.append(newCardContainer)
+}
+
+function cardArcana(card){
+  if (card.type === "major") {
+    card.suit = "Major Arcana"
+  }
+  return card.suit
+}
+
+function fetchReadings(){
+  fetch('http://localhost:3000/api/v1/readings')
+  .then(resp => resp.json())
+  .then(function(readings){
+    console.log(readings)
+    let readingsContainer = document.getElementById('readings-container')
+  })
+}
+
+
 
 // function getCardData() {
 //   let cardArray = Array.from(document.getElementsByClassName('card'))
