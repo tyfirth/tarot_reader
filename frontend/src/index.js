@@ -32,14 +32,24 @@ document.addEventListener('DOMContentLoaded', function(){
   sevenCardDrawBtn.addEventListener('click', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
     .then(resp => resp.json())
-    .then(data => displayCards(data.cards))
+    .then(function(data){
+      displayCards(data.cards)
+      // createReading(data.cards)
+      const saveButton = document.getElementById('saveReading')
+      saveButton.addEventListener('click', function(){
+        createReading(data.cards)
+      })
+    })
+
+    let readingNotes = document.createElement('input')
+    let readingNotesDiv = document.getElementById('reading-notes-div')
+    readingNotes.innerHTML = "Thoughts?"
+    readingNotes.setAttribute('type', 'text')
+    readingNotesDiv.appendChild(readingNotes)
 
   })
 
-  const saveButton = document.getElementById('saveReading')
-  saveButton.addEventListener('click', function(){
-    createReading()
-  })
+
 
   let resetBtn = document.getElementById('reset')
   resetBtn.addEventListener('click', resetContainer)
@@ -122,8 +132,6 @@ function displayCards(cards) { // should probably separate into createCard metho
     // create a new reading object with those cards
 
     // testing area
-
-
   } // end for all displayed
 }
 
@@ -145,32 +153,48 @@ function cardArcana(card){
 const fetchReadings = function(){
   fetch('http://localhost:3000/api/v1/readings')
   .then(resp => resp.json())
-  .then(data => console.log(data))
+  .then(function(readings){
+    console.log(readings)
+    let readingsContainer = document.getElementById('readings-container')
+  })
 }
 
-function createReading(readingObj){
-  getCardData()
+function createReading(cards){
+  // getCardData()
+  // create reading obj
+  const readingObj = {}
+    for(const element of cards){
+      readingObj["name"] = element.name
+    }
+
+
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
-    body: JSON.stringify({reading: readingObj})
+    body: JSON.stringify({
+      reading: readingObj
+        // cards: {},
+        // notes: "I always get the same reading..."
+
+    })
   })
   .then(resp => resp.json())
   .then(data => console.log(data))
 }
 
-function getCardData() {
-  let cardArray = Array.from(document.getElementsByClassName('card'))
-  const readingObj = {}
-  for(let i = 0; i < cardArray.length; i++){
-    readingObj[`card${i+1}`] = cardArray[i].childNodes
-  }
-  console.log(cardArray)
-  console.log(readingObj)
-  return readingObj
-}
+// function getCardData() {
+//   let cardArray = Array.from(document.getElementsByClassName('card'))
+//   const readingObj = {}
+//   for(let i = 0; i < cardArray.length; i++){
+//     readingObj[`card${i+1}`] = cardArray[i].childNodes
+//   }
+//   console.log(cardArray)
+//   console.log(readingObj)
+//   return readingObj
+// }
 
 // fetch('http://localhost:3000/data')
 // .then(resp => resp.json())

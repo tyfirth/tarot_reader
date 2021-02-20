@@ -5,18 +5,28 @@
     <link rel="stylesheet" href="index.css" />
     <title>Tyler's Tarot Reader</title>
     <script type="text/javascript" src="src/index.js"></script>
+    <script type="text/javascript" src="src/reading.js"></script>
+    <script type="text/javascript" src="src/card.js"></script>
 
   </head>
 
 
   <body>
 
-    <button type="button" id="sevenCardDraw">Seven Card Draw</button>
-    <button type="button" id="oneCardDraw">One Card Draw</button>
-    <button type="button" id="reset">Reset</button>
+    <div class="button-div">
+      <button type="button" id="sevenCardDraw">Seven Card Draw</button>
+      <button type="button" id="oneCardDraw">One Card Draw</button>
+      <button type="button" id="reset">Reset</button>
+    </div>
+
+
 
 
     <h2>Welcome!</h2>
+
+    <div id="reading-notes-div">
+
+    </div>
 
     <div class="card-container">
 
@@ -24,7 +34,7 @@
 
     <button type="button" id="saveReading">Save Reading</button>
 
-    <div class="readings-container">
+    <div id="readings-container">
 
     </div>
 
