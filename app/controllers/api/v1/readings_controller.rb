@@ -19,8 +19,8 @@ class Api::V1::ReadingsController < ApplicationController
   private
 
     def reading_params
-      params.require(:reading).permit(:notes, :timestamps, card_attributes: [:name, :value_int, :type, :suit, :meaning_up, :desc])
+      params.require(:reading).permit(:notes, :timestamps, {cards_attributes: [:name, :value_int, :type, :suit, :meaning_up, :desc]})
     end
-    # add card_attributes to params
+    # add cards_attributes to params
 
 end

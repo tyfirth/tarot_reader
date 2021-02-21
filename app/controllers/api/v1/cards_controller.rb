@@ -1,11 +1,13 @@
 class Api::V1::CardsController < ApplicationController
 
   def index
-    cards = Card.all
+    @cards = Card.all
+    render json: @cards
   end
 
   def create
-    card = Card.create(card_params)
+    @card = Card.create(card_params)
+    render json: @card
   end
 
   private

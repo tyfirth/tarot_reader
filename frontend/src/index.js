@@ -25,8 +25,13 @@ document.addEventListener('DOMContentLoaded', function(){
   oneCardDrawBtn.addEventListener('click', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1")
     .then(resp => resp.json())
-    .then(data => displayCards(data.cards))
-
+    .then(function(data){
+      displayCards(data.cards)
+      const saveButton = document.getElementById('saveReading')
+      saveButton.addEventListener('click', function(){
+        createReading(data.cards)
+      })
+    })
   })
 
   const sevenCardDrawBtn = document.getElementById('sevenCardDraw')
@@ -42,15 +47,13 @@ document.addEventListener('DOMContentLoaded', function(){
       })
     })
 
-    let readingNotes = document.createElement('input')
+    let readingNotes = document.createElement('textarea')
     let readingNotesDiv = document.getElementById('reading-notes-div')
-    readingNotes.innerHTML = "Thoughts?"
-    readingNotes.setAttribute('type', 'text')
+    readingNotesDiv.innerHTML = "Your thoughts?  "
+    readingNotes.setAttribute('id', "reading-notes")
     readingNotesDiv.appendChild(readingNotes)
 
   })
-
-
 
   let resetBtn = document.getElementById('reset')
   resetBtn.addEventListener('click', resetContainer)
@@ -137,25 +140,14 @@ function displayCards(cards) { // should probably separate into createCard metho
 }
 
 function createReading(cards){
-  // getCardData()
-  // create reading obj
   let readingObj = {}
 
   for(let i = 0; i < cards.length; i++){
-      readingObj["name"] = cards[i].name,
-      readingObj["type"] = cards[i].type,
-      readingObj["suit"] = cards[i].suit,
-      readingObj["number"] = cards[i].value_int,
-      readingObj["desc"] = cards[i].desc
+    readingObj[`card${i+1}`] = cards[i]
   }
 
-    // for(const element of cards){
-    //   readingObj["name"] = element.name,
-    //   readingObj["type"] = element.type,
-    //   readingObj["suit"] = element.suit,
-    //   readingObj["number"] = element.value_int,
-    //   readingObj["desc"] = element.desc
-    // }
+  let readingNotes = document.getElementById('reading-notes')
+  
 
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
@@ -165,7 +157,19 @@ function createReading(cards){
     },
     body: JSON.stringify({
       reading: readingObj
-        // cards: {},
+      // reading: {
+      //   card1: {
+      //     name: "Ace",
+      //     suit: "Wands"
+      //   },
+      //   card2: {
+      //     name: "King",
+      //     suit: "Cups"
+      //   },
+      //   notes: "This is weird"
+      // }
+
+        // readingObj,
         // notes: "I always get the same reading..."
 
     })
