@@ -8,6 +8,8 @@ class CreateCards < ActiveRecord::Migration[6.0]
       t.string :meaning_up
       t.string :desc
 
+      t.integer :reading_id
+
       t.timestamps
     end
   end

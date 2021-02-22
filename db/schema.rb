@@ -19,12 +19,14 @@ ActiveRecord::Schema.define(version: 2021_02_09_031917) do
     t.string "suit"
     t.string "meaning_up"
     t.string "desc"
+    t.integer "reading_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "readings", force: :cascade do |t|
     t.string "notes"
+    t.string "cards"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

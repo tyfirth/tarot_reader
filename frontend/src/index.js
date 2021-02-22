@@ -47,11 +47,11 @@ document.addEventListener('DOMContentLoaded', function(){
       })
     })
 
-    let readingNotes = document.createElement('textarea')
-    let readingNotesDiv = document.getElementById('reading-notes-div')
-    readingNotesDiv.innerHTML = "Your thoughts?  "
-    readingNotes.setAttribute('id', "reading-notes")
-    readingNotesDiv.appendChild(readingNotes)
+    // let readingNotes = document.createElement('textarea')
+    // let readingNotesDiv = document.getElementById('reading-notes-div')
+    // readingNotesDiv.innerHTML = "Your thoughts?  "
+    // readingNotes.setAttribute('id', "reading-notes")
+    // readingNotesDiv.appendChild(readingNotes)
 
   })
 
@@ -140,14 +140,20 @@ function displayCards(cards) { // should probably separate into createCard metho
 }
 
 function createReading(cards){
+
+  // let readingNotes = document.getElementById('reading-notes')
   let readingObj = {}
+  // for(let i = 0; i < cards.length; i++){
+  //   // readingObj[`card${i+1}`] = cards[i]
+  //   Object.assign(readingObj, cards, cards[i])
+  // }
 
-  for(let i = 0; i < cards.length; i++){
-    readingObj[`card${i+1}`] = cards[i]
-  }
+  Object.assign(readingObj, cards)
 
-  let readingNotes = document.getElementById('reading-notes')
-  
+// for (const element of cards) {
+//   element.setAttribute("id", `${this.id}`)
+// }
+
 
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
@@ -156,22 +162,10 @@ function createReading(cards){
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      reading: readingObj
-      // reading: {
-      //   card1: {
-      //     name: "Ace",
-      //     suit: "Wands"
-      //   },
-      //   card2: {
-      //     name: "King",
-      //     suit: "Cups"
-      //   },
-      //   notes: "This is weird"
-      // }
-
-        // readingObj,
-        // notes: "I always get the same reading..."
-
+      reading: {
+        cards: readingObj,
+        notes: "Imma note 2"
+      }
     })
   })
   .then(resp => resp.json())
