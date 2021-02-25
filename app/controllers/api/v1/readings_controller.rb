@@ -2,8 +2,8 @@ class Api::V1::ReadingsController < ApplicationController
 
   def index
     # binding.pry
-    @readings = Reading.all
-    render json:  @readings
+    readings = Reading.all
+    render json:  readings
   end
 
   def create
@@ -12,8 +12,8 @@ class Api::V1::ReadingsController < ApplicationController
     # # or
     # @card = Card.find_or_create_by(name: reading_params[:cards][:card_name].value)
 
-    @reading = Reading.create(reading_params)
-    # @reading.cards.each do |card|
+    reading = Reading.create(reading_params)
+    # reading_params[:cards].each do |card|
     #   binding.pry
     #  card.reading_id = self.id
     #   self.cards << card
@@ -21,12 +21,12 @@ class Api::V1::ReadingsController < ApplicationController
 
     # @reading.cards.build
   # THis was it ^^^^^^ partly
-    render json: @reading
+    render json: reading
   end
 
   def destroy
-    @reading = Reading.find_by(id: params[:id]).destroy
-    render json: @readings
+    reading = Reading.find_by(id: params[:id]).destroy
+    render json: readings
     # should ^ be @reading?
   end
 
@@ -36,7 +36,6 @@ class Api::V1::ReadingsController < ApplicationController
       params.require(:reading).permit(
         # {card_ids: []},
         :notes,
-        :timestamps,
         cards: [:id, :name, :number, :suit, :reading_id]
       )
     end

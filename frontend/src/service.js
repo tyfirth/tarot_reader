@@ -1,5 +1,7 @@
 // class ApiService {
 //
+//   constructor()
+//
 //
 // // read
 //  fetchReadings(){

@@ -145,38 +145,28 @@ function createReading(cards, notes){
 
   // let readingNotes = document.getElementById('reading-notes')
 
-  // let readingObj = {}
+  let readingObj = {}
   // let readingObj = []
   //
   // for (const element of cards){
   //
   // }
 
-  createCards(cards)
+  // createCards(cards)
 
-  for(let i = 0; i < cards.length; i++){
-    // readingObj[`card${i+1}`] = cards[i]
-    let card = new Card()
-    card.name = cards[i]['name']
-    card.suit = cardArcana(`cards[${i}]`)
-    card.number = cards[i]['value_int']
-
-    card.reading_id = this.id
-    Object.assign(readingObj, card)
-  }
-
-  // function createCards(cards) {
-  //   let readingObj = {}
+  // for(let i = 0; i < cards.length; i++){
+  //   // readingObj[`card${i+1}`] = cards[i]
+  //   let card = new Card()
+  //   card.name = cards[i]['name']
+  //   // card.suit = cardArcana(`cards[${i}]`)
+  //   card.number = cards[i]['value_int']
   //
-  //   for(const element of cards){
-  //     const card = new Card()
-  //     card.card_name = element.name
-  //     console.log(element)
-  //     Object.assign(readingObj, card)
-  //     console.log(readingObj)
-  //   }
-  //
+  //   card.reading_id = this.id
+  //   Object.assign(readingObj, card)
   // }
+  //
+  // const card = new Card()
+  //
 
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
@@ -186,7 +176,7 @@ function createReading(cards, notes){
     },
     body: JSON.stringify({
       reading: {
-        cards: readingObj,
+        // cards: card,
         notes: "Imma note 2 as well"
       }
     })
@@ -219,6 +209,18 @@ function fetchReadings(){
   })
 }
 
+// function createCards(cards) {
+//   let readingObj = {}
+//
+//   for(const element of cards){
+//     const card = new Card()
+//     card.card_name = element.name
+//     console.log(element)
+//     Object.assign(readingObj, card)
+//     console.log(readingObj)
+//   }
+//
+
 function createCards(cards) {
   let readingObj = {}
 
@@ -229,12 +231,24 @@ function createCards(cards) {
     card.number = element.value_int
     card.suit = cardArcana(element)
 
-
     Object.assign(readingObj, card)
     // console.log(card)
-    console.log(readingObj)
-    return readingObj
+    // console.log(readingObj)
+    // return readingObj
   })
+
+  fetch('http://localhost:3000/api/v1/cards',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({name: 'ace', reading_id: 1 })
+  })
+  .then(resp => resp.json())
+  .then(data => console.log(data))
+
+
 
   console.log(readingObj)
 }
