@@ -6,14 +6,15 @@ class Api::V1::CardsController < ApplicationController
   end
 
   def create
-    @card = Card.create(card_params)
-    render json: @card
+    binding.pry
+    card = Card.create(card_params)
+    render json: card
   end
 
   private
 
     def card_params
-      params.require(:card).permit(:name, :number, :type, :suit, :meaning_up, :desc)
+      params.require(:card).permit(:name, :number, :type, :suit, :meaning_up, :desc, :reading_id)
     end
 
 end

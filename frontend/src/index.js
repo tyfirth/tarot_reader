@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1")
     .then(resp => resp.json())
     .then(function(data){
+      // createCards(data.cards)
       displayCards(data.cards)
       const saveButton = document.getElementById('saveReading')
       saveButton.addEventListener('click', function(){
@@ -39,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
     .then(resp => resp.json())
     .then(function(data){
+      createCards(data.cards)
       displayCards(data.cards)
       // createReading(data.cards)
       const saveButton = document.getElementById('saveReading')
@@ -139,21 +141,42 @@ function displayCards(cards) { // should probably separate into createCard metho
   } // end for all displayed
 }
 
-function createReading(cards){
+function createReading(cards, notes){
 
   // let readingNotes = document.getElementById('reading-notes')
-  let readingObj = {}
-  // for(let i = 0; i < cards.length; i++){
-  //   // readingObj[`card${i+1}`] = cards[i]
-  //   Object.assign(readingObj, cards, cards[i])
+
+  // let readingObj = {}
+  // let readingObj = []
+  //
+  // for (const element of cards){
+  //
   // }
 
-  Object.assign(readingObj, cards)
+  createCards(cards)
 
-// for (const element of cards) {
-//   element.setAttribute("id", `${this.id}`)
-// }
+  for(let i = 0; i < cards.length; i++){
+    // readingObj[`card${i+1}`] = cards[i]
+    let card = new Card()
+    card.name = cards[i]['name']
+    card.suit = cardArcana(`cards[${i}]`)
+    card.number = cards[i]['value_int']
 
+    card.reading_id = this.id
+    Object.assign(readingObj, card)
+  }
+
+  // function createCards(cards) {
+  //   let readingObj = {}
+  //
+  //   for(const element of cards){
+  //     const card = new Card()
+  //     card.card_name = element.name
+  //     console.log(element)
+  //     Object.assign(readingObj, card)
+  //     console.log(readingObj)
+  //   }
+  //
+  // }
 
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
@@ -164,7 +187,7 @@ function createReading(cards){
     body: JSON.stringify({
       reading: {
         cards: readingObj,
-        notes: "Imma note 2"
+        notes: "Imma note 2 as well"
       }
     })
   })
@@ -196,7 +219,25 @@ function fetchReadings(){
   })
 }
 
+function createCards(cards) {
+  let readingObj = {}
 
+  cards.forEach(function(element){
+    const card = new Card()
+
+    card.name = element.name
+    card.number = element.value_int
+    card.suit = cardArcana(element)
+
+
+    Object.assign(readingObj, card)
+    // console.log(card)
+    console.log(readingObj)
+    return readingObj
+  })
+
+  console.log(readingObj)
+}
 
 // function getCardData() {
 //   let cardArray = Array.from(document.getElementsByClassName('card'))
