@@ -1,19 +1,10 @@
   console.log('%c Why, hello there...', 'color: lightblue')
 
-  // (function() {console.log('%c ..what does your future hold?', 'color:lightblue') }) ()
-  // why cant this IIFE be called here?
-
-// basic fetch
-  // fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
-  // .then(resp => resp.json())
-  // .then(data => displayCards(data.cards))
-
-// click button to get random readings from api
-// pass a customized reading object to a another function that will wait
-// for save button click, at which point will trigger a
-// post fetch to YOUR Api with customized reading object (that has_many cards)
+  // const apiService = new ApiService()
 
 document.addEventListener('DOMContentLoaded', function(){
+
+
 
   (function() {console.log('%c ..what does your future hold?', 'color:lightblue') }) ()
 // IIFE being called here ^^^
@@ -40,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
     .then(resp => resp.json())
     .then(function(data){
-      createCards(data.cards)
+      // createCards(data.cards)
       displayCards(data.cards)
       // createReading(data.cards)
       const saveButton = document.getElementById('saveReading')
@@ -145,28 +136,19 @@ function createReading(cards, notes){
 
   // let readingNotes = document.getElementById('reading-notes')
 
-  let readingObj = {}
-  // let readingObj = []
+  // let readingObj = {}
   //
-  // for (const element of cards){
-  //
-  // }
-
-  // createCards(cards)
-
-  // for(let i = 0; i < cards.length; i++){
-  //   // readingObj[`card${i+1}`] = cards[i]
+  // cards.forEach(function(element){
   //   let card = new Card()
-  //   card.name = cards[i]['name']
-  //   // card.suit = cardArcana(`cards[${i}]`)
-  //   card.number = cards[i]['value_int']
   //
+  //   card.name = element.name
+  //   card.number = element.value_int
+  //   card.suit = cardArcana(element)
   //   card.reading_id = this.id
+  //
   //   Object.assign(readingObj, card)
-  // }
-  //
-  // const card = new Card()
-  //
+  //   console.log(readingObj)
+  // })
 
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
@@ -176,7 +158,7 @@ function createReading(cards, notes){
     },
     body: JSON.stringify({
       reading: {
-        // cards: card,
+        cards: readingObj,
         notes: "Imma note 2 as well"
       }
     })
@@ -219,22 +201,21 @@ function fetchReadings(){
 //     Object.assign(readingObj, card)
 //     console.log(readingObj)
 //   }
-//
 
-function createCards(cards) {
+
+function createCards(cards, reading_id) {
   let readingObj = {}
 
   cards.forEach(function(element){
-    const card = new Card()
+    let card = new Card()
 
     card.name = element.name
     card.number = element.value_int
     card.suit = cardArcana(element)
+    card.reading_id = 1
 
     Object.assign(readingObj, card)
-    // console.log(card)
-    // console.log(readingObj)
-    // return readingObj
+    console.log(readingObj)
   })
 
   fetch('http://localhost:3000/api/v1/cards',{
@@ -243,14 +224,11 @@ function createCards(cards) {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify({name: 'ace', reading_id: 1 })
+    body: JSON.stringify({card: readingObj})
   })
   .then(resp => resp.json())
   .then(data => console.log(data))
 
-
-
-  console.log(readingObj)
 }
 
 // function getCardData() {
@@ -262,13 +240,4 @@ function createCards(cards) {
 //   console.log(cardArray)
 //   console.log(readingObj)
 //   return readingObj
-// }
-
-// fetch('http://localhost:3000/data')
-// .then(resp => resp.json())
-// .then(data => getImgs(data.cards))
-//
-// function getImgs(cards){
-//   return cards.find(name => element.name)
-//   console.log(cards)
 // }

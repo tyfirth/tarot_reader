@@ -1,7 +1,9 @@
 class Reading {
 
-  constructor(notes){
-    this.notes = notes
+  constructor(reading){
+    this.id = reading.id
+    this.notes = reading.notes
+    this.cards = reading.cards
 
   }
 }
