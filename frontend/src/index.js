@@ -17,11 +17,13 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1")
     .then(resp => resp.json())
     .then(function(data){
+      createReading(data.cards)
       // createCards(data.cards)
       displayCards(data.cards)
       const saveButton = document.getElementById('saveReading')
       saveButton.addEventListener('click', function(){
-        createReading(data.cards)
+        // createReading(data.cards)
+        createCards(data.cards)
       })
     })
   })
@@ -31,12 +33,12 @@ document.addEventListener('DOMContentLoaded', function(){
     fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
     .then(resp => resp.json())
     .then(function(data){
+      createReading(data.cards)
       // createCards(data.cards)
       displayCards(data.cards)
-      // createReading(data.cards)
       const saveButton = document.getElementById('saveReading')
       saveButton.addEventListener('click', function(){
-        createReading(data.cards)
+        // createReading(data.cards)
       })
     })
 
@@ -132,41 +134,6 @@ function displayCards(cards) { // should probably separate into createCard metho
   } // end for all displayed
 }
 
-function createReading(cards, notes){
-
-  // let readingNotes = document.getElementById('reading-notes')
-
-  // let readingObj = {}
-  //
-  // cards.forEach(function(element){
-  //   let card = new Card()
-  //
-  //   card.name = element.name
-  //   card.number = element.value_int
-  //   card.suit = cardArcana(element)
-  //   card.reading_id = this.id
-  //
-  //   Object.assign(readingObj, card)
-  //   console.log(readingObj)
-  // })
-
-  fetch('http://localhost:3000/api/v1/readings',{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      reading: {
-        cards: readingObj,
-        notes: "Imma note 2 as well"
-      }
-    })
-  })
-  .then(resp => resp.json())
-  .then(data => console.log(data))
-}
-
 function resetContainer() {
   let cardContainer = document.querySelector('div.card-container')
   cardContainer.remove()
@@ -191,6 +158,57 @@ function fetchReadings(){
   })
 }
 
+function createReading(cards, notes){
+
+  // let readingNotes = document.getElementById('reading-notes')
+
+  // let readingObj = {}
+  //
+  // cards.forEach(function(element){
+  //   let card = new Card()
+  //
+  //   card.name = element.name
+  //   card.number = element.value_int
+  //   card.suit = cardArcana(element)
+  //   // card.reading_id = reading.id
+  //
+  //   Object.assign(readingObj, card)
+  //   console.log(readingObj)
+  // })
+
+  fetch('http://localhost:3000/api/v1/readings',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      reading: {
+        // cards: readingObj,
+        notes: "Changin up da notez"
+      }
+    })
+  })
+  .then(resp => resp.json()) //can return json here? to DRY code
+  .then(function(reading){
+    console.log(reading)
+
+    let readingNotesDiv = document.getElementById('reading-notes-div')
+    let newReadingID = document.createElement('p')
+    // newReadingID.classList = 'reading-id'
+    readingNotesDiv.setAttribute('data-id', `${reading.id}`)
+    // newReadingID.innerText = reading.id
+    let id = readingNotesDiv.dataset.id
+
+
+    // readingNotesDiv.appendChild(newReadingID)
+    // createCards(cards, reading)
+    console.log(`Cool! I got the reading id here: ${id}`)
+    // createCards(id)
+  })
+
+} //end createReading
+
 // function createCards(cards) {
 //   let readingObj = {}
 //
@@ -203,8 +221,10 @@ function fetchReadings(){
 //   }
 
 
-function createCards(cards, reading_id) {
+function createCards(cards) {
   let readingObj = {}
+  let readingNotesDiv = document.getElementById('reading-notes-div')
+  let id = readingNotesDiv.dataset.id
 
   cards.forEach(function(element){
     let card = new Card()
@@ -212,7 +232,7 @@ function createCards(cards, reading_id) {
     card.name = element.name
     card.number = element.value_int
     card.suit = cardArcana(element)
-    card.reading_id = 1
+    card.reading_id = id
 
     Object.assign(readingObj, card)
     console.log(readingObj)

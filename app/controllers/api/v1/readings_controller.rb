@@ -7,7 +7,7 @@ class Api::V1::ReadingsController < ApplicationController
   end
 
   def create
-    binding.pry
+    # binding.pry
 
     # # or
     # @card = Card.find_or_create_by(name: reading_params[:cards][:card_name].value)
@@ -36,7 +36,7 @@ class Api::V1::ReadingsController < ApplicationController
       params.require(:reading).permit(
         # {card_ids: []},
         :notes,
-        cards: [:id, :name, :number, :suit, :reading_id]
+        cards: [:id, :name, :number, :suit, :reading_id ]
       )
     end
     #  This expects an instance but receives an object

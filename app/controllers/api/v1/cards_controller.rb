@@ -6,7 +6,7 @@ class Api::V1::CardsController < ApplicationController
   end
 
   def create
-    binding.pry
+    # binding.pry
     card = Card.create(card_params)
     render json: card
   end
