@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   fetchReadings()
   // ApiService.fetchReadings()
+  // displayReadings(readings)
 
   const oneCardDrawBtn = document.getElementById('oneCardDraw')
   oneCardDrawBtn.addEventListener('click', function(){
@@ -18,11 +19,9 @@ document.addEventListener('DOMContentLoaded', function(){
     .then(resp => resp.json())
     .then(function(data){
       createReading(data.cards)
-      // createCards(data.cards)
       displayCards(data.cards)
       const saveButton = document.getElementById('saveReading')
       saveButton.addEventListener('click', function(){
-        // createReading(data.cards)
         createCards(data.cards)
       })
     })
@@ -34,11 +33,10 @@ document.addEventListener('DOMContentLoaded', function(){
     .then(resp => resp.json())
     .then(function(data){
       createReading(data.cards)
-      // createCards(data.cards)
       displayCards(data.cards)
       const saveButton = document.getElementById('saveReading')
       saveButton.addEventListener('click', function(){
-        // createReading(data.cards)
+        createCards(data.cards)
       })
     })
 
@@ -155,26 +153,15 @@ function fetchReadings(){
   .then(function(readings){
     console.log(readings)
     let readingsContainer = document.getElementById('readings-container')
+
+    // do something with readings to display them
+
   })
 }
 
 function createReading(cards, notes){
 
   // let readingNotes = document.getElementById('reading-notes')
-
-  // let readingObj = {}
-  //
-  // cards.forEach(function(element){
-  //   let card = new Card()
-  //
-  //   card.name = element.name
-  //   card.number = element.value_int
-  //   card.suit = cardArcana(element)
-  //   // card.reading_id = reading.id
-  //
-  //   Object.assign(readingObj, card)
-  //   console.log(readingObj)
-  // })
 
   fetch('http://localhost:3000/api/v1/readings',{
     method: 'POST',
@@ -194,7 +181,7 @@ function createReading(cards, notes){
     console.log(reading)
 
     let readingNotesDiv = document.getElementById('reading-notes-div')
-    let newReadingID = document.createElement('p')
+    // let newReadingID = document.createElement('p')
     // newReadingID.classList = 'reading-id'
     readingNotesDiv.setAttribute('data-id', `${reading.id}`)
     // newReadingID.innerText = reading.id
@@ -232,8 +219,11 @@ function createCards(cards) {
     card.name = element.name
     card.number = element.value_int
     card.suit = cardArcana(element)
+    card.meaning_up = element.meaning_up
+    card.desc = element.desc
     card.reading_id = id
 
+    // readingObj.push(card)
     Object.assign(readingObj, card)
     console.log(readingObj)
   })
