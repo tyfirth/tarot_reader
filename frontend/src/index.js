@@ -171,7 +171,7 @@ function createReading(cards, notes){
     },
     body: JSON.stringify({
       reading: {
-        // cards: readingObj,
+        // cards: [{name: 'ace of spades'}, {name: 'queen of hearts'}],
         notes: "Changin up da notez"
       }
     })
@@ -209,35 +209,42 @@ function createReading(cards, notes){
 
 
 function createCards(cards) {
-  let readingObj = {}
+  // let cardsObj = []
   let readingNotesDiv = document.getElementById('reading-notes-div')
   let id = readingNotesDiv.dataset.id
 
   cards.forEach(function(element){
-    let card = new Card()
+    let card = new Card(element)
 
-    card.name = element.name
-    card.number = element.value_int
-    card.suit = cardArcana(element)
-    card.meaning_up = element.meaning_up
-    card.desc = element.desc
     card.reading_id = id
 
-    // readingObj.push(card)
-    Object.assign(readingObj, card)
-    console.log(readingObj)
+    // cardsObj.push(card)
+    // Object.assign(cardsObj, card)
+    // console.log(readingCards)
+    // setTimeOut
+    fetch('http://localhost:3000/api/v1/cards',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({card: card})
+    })
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+    // console.log(cardsObj)
   })
 
-  fetch('http://localhost:3000/api/v1/cards',{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({card: readingObj})
-  })
-  .then(resp => resp.json())
-  .then(data => console.log(data))
+  // fetch('http://localhost:3000/api/v1/cards',{
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json'
+  //   },
+  //   body: JSON.stringify({card: {readingCards}})
+  // })
+  // .then(resp => resp.json())
+  // .then(data => console.log(data))
 
 }
 

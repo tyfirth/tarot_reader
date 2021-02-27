@@ -36,7 +36,7 @@ class Api::V1::ReadingsController < ApplicationController
       params.require(:reading).permit(
         # {card_ids: []},
         :notes,
-        cards: [:id, :name, :number, :suit, :reading_id ]
+        cards_attributes: [:name, :number, :type, :suit, :meaning_up, :desc, :reading_id]
       )
     end
     #  This expects an instance but receives an object
