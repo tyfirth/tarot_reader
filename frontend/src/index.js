@@ -20,9 +20,12 @@ document.addEventListener('DOMContentLoaded', function(){
     .then(function(data){
       createReading(data.cards)
       displayCards(data.cards)
+      // createCards(data.cards)
+
       const saveButton = document.getElementById('saveReading')
       saveButton.addEventListener('click', function(){
         createCards(data.cards)
+        // fetchReadings()
       })
     })
   })
@@ -34,9 +37,12 @@ document.addEventListener('DOMContentLoaded', function(){
     .then(function(data){
       createReading(data.cards)
       displayCards(data.cards)
+      // createCards(data.cards)
+
       const saveButton = document.getElementById('saveReading')
       saveButton.addEventListener('click', function(){
         createCards(data.cards)
+        // fetchReadings()
       })
     })
 
@@ -154,13 +160,46 @@ function fetchReadings(){
     console.log(readings)
     let readingsContainer = document.getElementById('readings-container')
 
+    for(let reading of readings){
+      let newReadingCard = document.createElement('div')
+
+      let readingTitle = document.createElement('p')
+      readingTitle.innerText = reading.created_at
+      newReadingCard.appendChild(readingTitle)
+      readingsContainer.appendChild(newReadingCard)
+
+      let readingsCards = document.createElement('ul')
+      let cardName = document.createElement('li')
+
+      readingsCards.appendChild(cardName)
+      newReadingCard.appendChild(readingsCards)
+
+        // for(let card of reading){
+        //   let cardName = document.createElement('li')
+        //   cardName.innerText = card.name
+        //
+        //   readingsCards.appendChild(cardName)
+        //   newReadingCard.appendChild(readingsCards)
+        // }
+
+
+
+
+
+    }
+
     // do something with readings to display them
 
   })
 }
 
 function createReading(cards, notes){
+  let cardsArr = []
 
+  cards.forEach(function(card){
+    cardsArr.push(card.name)
+  })
+  console.log(cardsArr)
   // let readingNotes = document.getElementById('reading-notes')
 
   fetch('http://localhost:3000/api/v1/readings',{
@@ -171,7 +210,8 @@ function createReading(cards, notes){
     },
     body: JSON.stringify({
       reading: {
-        // cards: [{name: 'ace of spades'}, {name: 'queen of hearts'}],
+        // reading_cards: cardsArr,
+        reading_cards: [{name: 'ace'}, {name: 'queen'}],
         notes: "Changin up da notez"
       }
     })
@@ -235,26 +275,4 @@ function createCards(cards) {
     // console.log(cardsObj)
   })
 
-  // fetch('http://localhost:3000/api/v1/cards',{
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     'Accept': 'application/json'
-  //   },
-  //   body: JSON.stringify({card: {readingCards}})
-  // })
-  // .then(resp => resp.json())
-  // .then(data => console.log(data))
-
 }
-
-// function getCardData() {
-//   let cardArray = Array.from(document.getElementsByClassName('card'))
-//   const readingObj = {}
-//   for(let i = 0; i < cardArray.length; i++){
-//     readingObj[`card${i+1}`] = cardArray[i].childNodes
-//   }
-//   console.log(cardArray)
-//   console.log(readingObj)
-//   return readingObj
-// }

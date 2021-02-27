@@ -22,7 +22,6 @@ ActiveRecord::Schema.define(version: 2021_02_09_031917) do
     t.integer "reading_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["reading_id"], name: "index_cards_on_reading_id"
   end
 
   create_table "readings", force: :cascade do |t|
@@ -31,5 +30,4 @@ ActiveRecord::Schema.define(version: 2021_02_09_031917) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "cards", "readings"
 end
