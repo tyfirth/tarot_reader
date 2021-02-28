@@ -30,36 +30,36 @@ document.addEventListener('DOMContentLoaded', function(){
     })
   })
 
-  const sevenCardDrawBtn = document.getElementById('sevenCardDraw')
-  sevenCardDrawBtn.addEventListener('click', function(){
-    fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
-    .then(resp => resp.json())
-    .then(function(data){
-      createReading(data.cards)
-      displayCards(data.cards)
-      // createCards(data.cards)
-
-      const saveButton = document.getElementById('saveReading')
-      saveButton.addEventListener('click', function(){
-        createCards(data.cards)
-        // fetchReadings()
-      })
-    })
-
-    // let readingNotes = document.createElement('textarea')
-    // let readingNotesDiv = document.getElementById('reading-notes-div')
-    // readingNotesDiv.innerHTML = "Your thoughts?  "
-    // readingNotes.setAttribute('id', "reading-notes")
-    // readingNotesDiv.appendChild(readingNotes)
-
-  })
+  // const sevenCardDrawBtn = document.getElementById('sevenCardDraw')
+  // sevenCardDrawBtn.addEventListener('click', function(){
+  //   fetch("https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=7")
+  //   .then(resp => resp.json())
+  //   .then(function(data){
+  //     createReading(data.cards)
+  //     displayCards(data.cards)
+  //     // createCards(data.cards)
+  //
+  //     const saveButton = document.getElementById('saveReading')
+  //     saveButton.addEventListener('click', function(){
+  //       createCards(data.cards)
+  //       // fetchReadings()
+  //     })
+  //   })
+  //
+  //   // let readingNotes = document.createElement('textarea')
+  //   // let readingNotesDiv = document.getElementById('reading-notes-div')
+  //   // readingNotesDiv.innerHTML = "Your thoughts?  "
+  //   // readingNotes.setAttribute('id', "reading-notes")
+  //   // readingNotesDiv.appendChild(readingNotes)
+  //
+  // })
 
   let resetBtn = document.getElementById('reset')
   resetBtn.addEventListener('click', resetContainer)
 
 }) // end of DOMContentLoaded
 
-function displayCards(cards) { // should probably separate into createCard method and display method
+function displayCards(cards) {
   let hidden = true
   resetContainer()
   let cardContainer = document.querySelector('div.card-container')
@@ -135,8 +135,8 @@ function displayCards(cards) { // should probably separate into createCard metho
     // create a new reading object with those cards
 
     // testing area
-  } // end for all displayed
-}
+  }
+}// end for all displayed
 
 function resetContainer() {
   let cardContainer = document.querySelector('div.card-container')
@@ -156,97 +156,50 @@ function cardArcana(card){
 function fetchReadings(){
   fetch('http://localhost:3000/api/v1/readings')
   .then(resp => resp.json())
-  .then(function(readings){
-    console.log(readings)
+  .then(function(data){
+    console.log(data)
+
+    // let readings = data['data']
+    //
+    // for(const reading of readings){
+    //   console.log(reading)
+    // }
+
+  })
+
+
     let readingsContainer = document.getElementById('readings-container')
 
-    for(let reading of readings){
-      let newReadingCard = document.createElement('div')
-
-      let readingTitle = document.createElement('p')
-      readingTitle.innerText = reading.created_at
-      newReadingCard.appendChild(readingTitle)
-      readingsContainer.appendChild(newReadingCard)
-
-      let readingsCards = document.createElement('ul')
-      let cardName = document.createElement('li')
-
-      readingsCards.appendChild(cardName)
-      newReadingCard.appendChild(readingsCards)
-
-        // for(let card of reading){
-        //   let cardName = document.createElement('li')
-        //   cardName.innerText = card.name
-        //
-        //   readingsCards.appendChild(cardName)
-        //   newReadingCard.appendChild(readingsCards)
-        // }
-
-
-
-
-
-    }
+    // if(readings){
+    //   for(let reading of readings){
+    //     let cards = reading.cards
+    //     let newReadingCard = document.createElement('div')
+    //
+    //     let readingTitle = document.createElement('p')
+    //     readingTitle.innerText = reading.created_at
+    //     newReadingCard.appendChild(readingTitle)
+    //     readingsContainer.appendChild(newReadingCard)
+    //
+    //     let readingsCards = document.createElement('ul')
+    //     let cardName = document.createElement('li')
+    //
+    //     readingsCards.appendChild(cardName)
+    //     newReadingCard.appendChild(readingsCards)
+    //
+    //       // for(let card of reading){
+    //       //   let cardName = document.createElement('li')
+    //       //   cardName.innerText = card.name
+    //       //
+    //       //   readingsCards.appendChild(cardName)
+    //       //   newReadingCard.appendChild(readingsCards)
+    //       // }
+    //   }
+    // }
 
     // do something with readings to display them
 
-  })
+
 }
-
-function createReading(cards, notes){
-  let cardsArr = []
-
-  cards.forEach(function(card){
-    cardsArr.push(card.name)
-  })
-  console.log(cardsArr)
-  // let readingNotes = document.getElementById('reading-notes')
-
-  fetch('http://localhost:3000/api/v1/readings',{
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      reading: {
-        // reading_cards: cardsArr,
-        reading_cards: [{name: 'ace'}, {name: 'queen'}],
-        notes: "Changin up da notez"
-      }
-    })
-  })
-  .then(resp => resp.json()) //can return json here? to DRY code
-  .then(function(reading){
-    console.log(reading)
-
-    let readingNotesDiv = document.getElementById('reading-notes-div')
-    // let newReadingID = document.createElement('p')
-    // newReadingID.classList = 'reading-id'
-    readingNotesDiv.setAttribute('data-id', `${reading.id}`)
-    // newReadingID.innerText = reading.id
-    let id = readingNotesDiv.dataset.id
-
-
-    // readingNotesDiv.appendChild(newReadingID)
-    // createCards(cards, reading)
-    console.log(`Cool! I got the reading id here: ${id}`)
-    // createCards(id)
-  })
-
-} //end createReading
-
-// function createCards(cards) {
-//   let readingObj = {}
-//
-//   for(const element of cards){
-//     const card = new Card()
-//     card.card_name = element.name
-//     console.log(element)
-//     Object.assign(readingObj, card)
-//     console.log(readingObj)
-//   }
-
 
 function createCards(cards) {
   // let cardsObj = []
@@ -276,3 +229,43 @@ function createCards(cards) {
   })
 
 }
+
+function createReading(cards, notes){
+  // let cardsArr = cards.map(card => card.name)
+  // console.log(cardsArr)
+
+  // let readingNotes = document.getElementById('reading-notes')
+
+  fetch('http://localhost:3000/api/v1/readings',{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      reading: {
+        // reading_cards: cardsArr,
+        // reading_cards: [{name: 'ace'}, {name: 'queen'}],
+        notes: "Changin up da notez"
+      }
+    })
+  })
+  .then(resp => resp.json()) //can return json here? to DRY code
+  .then(function(reading){
+    console.log(reading)
+
+    let readingNotesDiv = document.getElementById('reading-notes-div')
+    // let newReadingID = document.createElement('p')
+    // newReadingID.classList = 'reading-id'
+    readingNotesDiv.setAttribute('data-id', `${reading.id}`)
+    // newReadingID.innerText = reading.id
+    let id = readingNotesDiv.dataset.id
+
+
+    // readingNotesDiv.appendChild(newReadingID)
+    // createCards(cards, reading)
+    console.log(`Cool! I got the reading id here: ${id}`)
+    // createCards(id)
+  })
+
+} //end createReading

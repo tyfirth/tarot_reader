@@ -2,13 +2,15 @@ class Api::V1::CardsController < ApplicationController
 
   def index
     cards = Card.all
-    render json: cards
+    # render json: CardSerializer.new(card)
+        render json: cards
   end
 
   def create
     # binding.pry
     card = Card.create(card_params)
-    render json: card
+    # render json: CardSerializer.new(card)
+        render json: card
   end
 
   private
