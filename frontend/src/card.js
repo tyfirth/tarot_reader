@@ -9,7 +9,37 @@ class Card {
     // this.reading_id = reading_id;
   }
 
-  // displayCards(cards) { 
+  static fetchOneCard(){
+    apiService.getOneCard()
+    .then(data => {
+      Reading.createReading(data.cards)
+      // createReading(data.cards)
+      displayCards(data.cards)
+
+      const saveButton = document.getElementById('saveReading')
+        saveButton.addEventListener('click', function(){
+          createCards(data.cards)
+          // fetchReadings()
+
+        })
+
+
+    })
+  }
+
+  // static createCards(cards){
+  //   const oneCardDrawBtn = document.getElementById('oneCardDraw')
+  //   oneCardDrawBtn.addEventListener('click', function(){
+  //     Card.fetchOneCard()
+  //   })
+  // }
+
+
+  appendCards(){
+
+  }
+
+  // displayCards(cards) {
   //   let hidden = true
   //   resetContainer()
   //   let cardContainer = document.querySelector('div.card-container')

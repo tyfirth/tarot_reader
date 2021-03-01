@@ -2,25 +2,32 @@ class Api::V1::ReadingsController < ApplicationController
 
   def index
     # binding.pry
-    readings = Reading.all
+    @readings = Reading.all
     # options = {
     #   include: [:cards]
     # }
     # render json:  ReadingSerializer.new(readings, options)
-    render json: readings
+    render json: @readings
   end
 
   def create
     # binding.pry
-    reading = Reading.create(reading_params)
+    @reading = Reading.create(reading_params)
     # render json: ReadingSerializer.new(reading, options)
-        render json: reading
+        render json: @reading
+  end
+
+  def show
+    # binding.pry
+    @reading = Reading.find_by(id: params[:id])
+    render json: @reading
+
   end
 
   def destroy
     reading = Reading.find_by(id: params[:id]).destroy
     # render json: ReadingSerializer.new(readings, options)
-      render json: readings
+      render json: reading
     # should ^ be @reading?
   end
 

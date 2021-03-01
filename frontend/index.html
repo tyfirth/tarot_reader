@@ -4,16 +4,28 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="index.css" />
     <title>Tyler's Tarot Reader</title>
+    <script type="text/javascript" src="src/service.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
     <script type="text/javascript" src="src/reading.js"></script>
     <script type="text/javascript" src="src/card.js"></script>
-    <script type="text/javascript" src="src/service.js"></script>
 
 
   </head>
 
 
   <body>
+
+    <h2>Welcome!</h2>
+
+    <div id="reading-notes-div">
+      <form class="reading-notes-form">
+        <label for="notes">Your feelings today?</label>
+        <input type="text" name="notes" value="I'm ready for the future!">
+        <input type="submit"/>
+      </form>
+    </div>
+
+<br>
 
     <div class="button-div">
       <!-- <button type="button" id="sevenCardDraw">Seven Card Draw</button> -->
@@ -22,10 +34,7 @@
       <button type="button" id="saveReading">Save Reading</button>
     </div>
 
-    <div id="reading-notes-div"></div>
 
-
-    <h2>Welcome!</h2>
 
 
     <div id="readings-container"></div>
