@@ -20,7 +20,7 @@ class Api::V1::CardsController < ApplicationController
   private
 
     def card_params
-      params.require(:card).permit(:name, :number, :type, :suit, :meaning_up, :desc, :reading_id)
+      params.require(:card).permit(:name, :number, :arcana, :suit, :meaning_up, :desc, :reading_id)
     end
 
 end

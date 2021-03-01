@@ -10,8 +10,8 @@ class Reading {
     apiService.findReadings()
     .then(readings => readings.forEach(reading => {
       let newReading = new Reading(reading)
-      // console.log(reading)
-      newReading.appendReading()
+      console.log(reading)
+      newReading.appendReading(newReading)
     }))
   }
 
@@ -23,13 +23,15 @@ class Reading {
       // readingNotesForm.reset()
       .then(reading => {
         let newReading = new Reading(reading)
-        newReading.appendReading()
+        console.log(newReading)
+
+        newReading.appendReading(newReading)
         console.log(`Cool! I got the reading id here: ${newReading.id}`)
       })
     })
   }
 
-  appendReading(){
+  appendReading(newReading){
 
     let readingsContainer = document.querySelector('#readings-container')
     let readingNotesDiv = document.createElement('div')

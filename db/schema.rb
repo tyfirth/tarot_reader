@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 2021_02_09_031917) do
   create_table "cards", force: :cascade do |t|
     t.string "name"
     t.integer "number"
-    t.string "type"
+    t.string "arcana"
     t.string "suit"
     t.string "meaning_up"
     t.string "desc"

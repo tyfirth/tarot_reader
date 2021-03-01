@@ -64,6 +64,4 @@ getOneCard(){
     newCardContainer.classList = 'card-container'
     document.body.append(newCardContainer)
   }
-
-
 }

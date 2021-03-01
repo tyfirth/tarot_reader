@@ -3,7 +3,7 @@ class CreateCards < ActiveRecord::Migration[6.0]
     create_table :cards do |t|
       t.string :name
       t.integer :number
-      t.string :type
+      t.string :arcana
       t.string :suit
       t.string :meaning_up
       t.string :desc
