@@ -13,6 +13,10 @@ class Api::V1::CardsController < ApplicationController
         render json: card
   end
 
+  def show
+    card = Card.find_by(id: params[:id])
+  end
+
   private
 
     def card_params

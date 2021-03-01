@@ -6,16 +6,19 @@ class ApiService {
 
 
 // read
+
+getOneCard(){
+  return fetch('https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1')
+  .then(resp => resp.json())
+}
+
+
   findReadings(){
     return fetch(`${this.baseURL}/readings`)
     .then(resp => resp.json())
   }
 
-  getOneCard(){
-    return fetch('https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1')
-    .then(resp => resp.json())
-  }
-
+// create
 
   postReading(e){
     return fetch(`${this.baseURL}/readings`,{
@@ -30,6 +33,22 @@ class ApiService {
     })
     .then(resp => resp.json())
   }
+
+  postCard(card){
+    return fetch(`${this.baseURL}/cards`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        card: card
+      })
+    })
+    .then(resp => resp.json())
+  }
+
+  // destroy
 
   removeReading(e){
     let id = e.target.parentElement.dataset.id

@@ -35,10 +35,10 @@ class Api::V1::ReadingsController < ApplicationController
 
     def reading_params
       params.require(:reading).permit(
-        :notes,
+        :notes
         # reading_cards: [],
-        {cards_attributes: [:id, :name, :number, :type, :suit, :meaning_up, :desc, :reading_id]},
-        {card_ids: []}
+        # {cards_attributes: [:id, :name, :number, :type, :suit, :meaning_up, :desc, :reading_id]},
+        # {card_ids: []}
       )
     end
 

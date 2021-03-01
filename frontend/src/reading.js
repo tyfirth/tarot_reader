@@ -20,13 +20,10 @@ class Reading {
     readingNotesForm.addEventListener('submit', function(e){
       e.preventDefault()
       apiService.postReading(e)
+      // readingNotesForm.reset()
       .then(reading => {
         let newReading = new Reading(reading)
-        let readingNotesDiv = document.getElementById('reading-notes-div')
-        readingNotesDiv.setAttribute('data-id', `${newReading.id}`)
-        let id = readingNotesDiv.dataset.id
-
-        console.log(reading)
+        newReading.appendReading()
         console.log(`Cool! I got the reading id here: ${newReading.id}`)
       })
     })
@@ -39,21 +36,23 @@ class Reading {
     readingNotesDiv.setAttribute('class', 'reading')
     readingNotesDiv.dataset.id = this.id
 
+
     let readingTitle = document.createElement('p')
     readingTitle.innerText = `${this.id} Your thoughts: ${this.notes}`
-
     let readingCards = document.createElement('ul')
+
+
+    readingNotesDiv.append(readingTitle, readingCards)
+    readingsContainer.append(readingNotesDiv)
+
     // console.log(this.cards)
 
-    readingNotesDiv.append(readingTitle)
-    readingNotesDiv.dataset.id = this.id
-    readingsContainer.append(readingNotesDiv)
     this.renderCards(readingNotesDiv)
+
 
     let deleteReadingBtn = document.createElement('button')
     deleteReadingBtn.innerText = 'Delete Reading'
     readingNotesDiv.append(deleteReadingBtn)
-
     this.deleteReading(deleteReadingBtn)
 
   }
