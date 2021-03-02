@@ -11,7 +11,7 @@ class Reading {
     .then(readings => readings.forEach(reading => {
       let newReading = new Reading(reading)
       console.log(reading)
-      newReading.appendReading(newReading)
+      newReading.appendReading()
     }))
   }
 
@@ -31,7 +31,7 @@ class Reading {
     })
   }
 
-  appendReading(newReading){
+  appendReading(){
 
     let readingsContainer = document.querySelector('#readings-container')
     let readingNotesDiv = document.createElement('div')
@@ -49,7 +49,7 @@ class Reading {
 
     // console.log(this.cards)
 
-    this.renderCards(readingNotesDiv)
+    this.renderCards(readingCards)
 
 
     let deleteReadingBtn = document.createElement('button')
@@ -59,12 +59,14 @@ class Reading {
 
   }
 
-  renderCards(readingNotesDiv){
+  renderCards(readingCards){
     if (this.cards){
       this.cards.forEach(card => {
         let newCard = new Card(card)
         console.log(card)
-        newCard.appendCardToReading(readingNotesDiv)
+        let readingCardName = document.createElement('li')
+        readingCardName.innerText = card.name
+        readingCards.append(readingCardName)
       })
     }
   }

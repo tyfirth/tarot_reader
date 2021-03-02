@@ -15,6 +15,9 @@ class Api::V1::CardsController < ApplicationController
 
   def show
     card = Card.find_by(id: params[:id])
+    # render json: CardSerializer.new(card)
+    render json: card
+
   end
 
   private
