@@ -4,7 +4,6 @@ class ApiService {
     this.baseURL = 'http://localhost:3000/api/v1'
   }
 
-
 // read
 
 getOneCard(){
@@ -12,6 +11,10 @@ getOneCard(){
   .then(resp => resp.json())
 }
 
+getSevenCards(){
+  return fetch('https://rws-cards-api.herokuapp.com/api/v1/cards/random?n=1')
+  .then(resp => resp.json())
+}
 
   findReadings(){
     return fetch(`${this.baseURL}/readings`)
@@ -63,5 +66,14 @@ getOneCard(){
     let newCardContainer = document.createElement('div')
     newCardContainer.classList = 'card-container'
     document.body.append(newCardContainer)
+  }
+
+  resetReadingContainer(){
+    let readingsContainer = document.querySelector('div#reading-container')
+    readingsContainer.remove()
+    let newReadingsContainer = document.createElement('div')
+    newReadingsContainer.classList = 'readings-container'
+    document.append(newReadingsContainer)
+    Reading.fetchReadings()
   }
 }

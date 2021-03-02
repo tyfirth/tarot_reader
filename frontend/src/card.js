@@ -22,23 +22,34 @@ class Card {
     })
   }
 
+  // static fetchSevenCards(){
+  //   const sevenCardDrawBtn = document.getElementById('sevenCardDraw')
+  //   sevenCardDrawBtn.addEventListener('click', function(){
+  //
+  //     apiService.getSevenCards()
+  //     .then(data => {
+  //       Card.createCards(data.cards)
+  //     })
+  //   })
+  // }
+
   static createCards(cards){
     let readingsContainer = document.querySelector('#readings-container')
-    let id = readingsContainer.lastChild.dataset.id
+    let lastReading = readingsContainer.lastChild
+    let lastReadingID = lastReading.dataset.id
 
     cards.forEach(card => {
             // setTimeOut
       let newCard = new Card(card)
-      newCard.reading_id = id
+      newCard.reading_id = lastReadingID
       newCard.appendCards(newCard)
       apiService.postCard(newCard)
-      .then(card => {
-        console.log(card)
-      })
-
+      newCard.appendCardName(newCard, lastReading)
+      // .then(card => {
+      //   // console.log(card)
+      // })
     })
   }
-
 
   appendCards(card){
     let hidden = true
@@ -110,6 +121,12 @@ class Card {
         hidden = !hidden
       }
     })
+  }
+
+  appendCardName(newCard, lastReading){
+    let readingCardName = document.createElement('li')
+    readingCardName.innerText = newCard.name
+    lastReading.appendChild(readingCardName)
   }
 
   cardArcana(){

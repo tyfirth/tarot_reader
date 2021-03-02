@@ -10,7 +10,7 @@ class Reading {
     apiService.findReadings()
     .then(readings => readings.forEach(reading => {
       let newReading = new Reading(reading)
-      console.log(reading)
+      // console.log(reading)
       newReading.appendReading()
     }))
   }
@@ -23,7 +23,7 @@ class Reading {
       // readingNotesForm.reset()
       .then(reading => {
         let newReading = new Reading(reading)
-        console.log(newReading)
+        // console.log(newReading)
 
         newReading.appendReading(newReading)
         console.log(`Cool! I got the reading id here: ${newReading.id}`)
@@ -47,10 +47,7 @@ class Reading {
     readingNotesDiv.append(readingTitle, readingCards)
     readingsContainer.append(readingNotesDiv)
 
-    // console.log(this.cards)
-
     this.renderCards(readingCards)
-
 
     let deleteReadingBtn = document.createElement('button')
     deleteReadingBtn.innerText = 'Delete Reading'
@@ -63,7 +60,7 @@ class Reading {
     if (this.cards){
       this.cards.forEach(card => {
         let newCard = new Card(card)
-        console.log(card)
+        // console.log(card)
         let readingCardName = document.createElement('li')
         readingCardName.innerText = card.name
         readingCards.append(readingCardName)
