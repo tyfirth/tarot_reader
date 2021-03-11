@@ -4,7 +4,11 @@ class Reading {
     this.id = reading.id
     this.notes = reading.notes
     this.cards = reading.cards
+
+    Reading.all.push(this)
   }
+
+  static all = []
 
   static fetchReadings(){
     apiService.findReadings()
@@ -32,6 +36,8 @@ class Reading {
   }
 
   appendReading(){
+
+    // apiService.resetReadingContainer()
 
     let readingsContainer = document.querySelector('#readings-container')
     let readingNotesDiv = document.createElement('div')
@@ -75,6 +81,24 @@ class Reading {
       e.target.parentElement.remove()
     })
   }
+
+  static searchReadings(){
+    let searchReadings = document.querySelector('.readings-search')
+    let readings = Reading.all
+
+    searchReadings.addEventListener('submit', function(e){
+      e.preventDefault()
+
+      readings.filter(reading => {
+        if (reading.notes.includes(e.target.searchValue.value)) {
+          console.log(reading)
+          reading.appendReading()
+        }
+      })
+
+    })
+
+}
 
 
 }

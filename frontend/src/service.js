@@ -74,6 +74,9 @@ getSevenCards(){
     let newReadingsContainer = document.createElement('div')
     newReadingsContainer.classList = 'readings-container'
     document.append(newReadingsContainer)
-    Reading.fetchReadings()
+    // Reading.fetchReadings()
   }
+
+
+
 }

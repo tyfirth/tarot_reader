@@ -10,4 +10,5 @@ document.addEventListener('DOMContentLoaded', function(){
   Reading.createReading()
   Card.fetchOneCard()
   // Card.fetchSevenCards()
+  Reading.searchReadings()
 })
